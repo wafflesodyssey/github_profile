@@ -1,7 +1,10 @@
+
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'webmock/minitest'
-require  'sinatra/test'
+require "bundler/setup"
+require 'sinatra/base'
+require 'rack/test'
 require './github'
 
 
@@ -9,13 +12,18 @@ require './github'
 
 
 class TestGitHub < Minitest::Test
-  include RACK::TEST::METHODS
+  include Rack::Test::Methods
 
   def app
     GitHub
   end
 
   def test_local
-    assert true
+    response = get("/")
+
+    assert_includes response.body, "Enter zipcode for weather"
   end
+
+
+
 end

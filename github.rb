@@ -6,7 +6,7 @@ require "pry"
 class GitHub < Sinatra::Base
 
   get "/" do
-    "Welcome"
+    ERB.new(File.read("./views/homepage.html.erb")).result(binding)
   end
 
 
